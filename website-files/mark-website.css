@@ -1,0 +1,133 @@
+/* Styles for the body element */
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+main footer{
+    margin: 0;
+}
+
+.background-img {
+    background-image: url(flower-img.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+/* Styles for headings */
+h1 {
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+h3 {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    border: 5px solid #333;
+    padding: 50px;
+    margin: 40px 300px;
+    background-color: rgba(255, 169, 198, 0.7);
+}
+
+/* Styles for links */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    width: 1000px;
+    height: auto;
+    margin: 0;
+}
+
+#photo-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* #photo-gallery h3 {
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    border: 5px solid #333;
+    padding: 50px;
+    margin: 40px 300px;
+    background-color: rgba(255, 169, 198, 0.7);
+} */
+
+.header h1{
+    border: 5px solid #333;
+    padding: 50px;
+    margin: 40px;
+    background-color: rgba(255, 169, 198, 0.7);
+}
+
+.header{
+    text-align: center;
+    border: 5px solid #333;
+    background-color:rgba(173, 173, 173, 0.8);
+}
+
+.header img{
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#photo-gallery{
+    display: flex;
+}
+
+.extra-padding {
+    padding: 25px;
+}
+
+.story-form { 
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin: 0px;
+    border: 5px solid #333;
+    background-color: rgb(85, 158, 255);
+}
+
+#story-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+#name-label {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+#submit {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    padding: 7px;
+    background-color: rgba(255, 169, 198, 1);
+    color: #333;
+    border: 2px solid #333;
+}

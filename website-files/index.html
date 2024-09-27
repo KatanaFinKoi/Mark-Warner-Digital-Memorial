@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<div class="background-img">
+    <html lang="en-US">
+
+                <!--TO-DO make sure that the form will store date to database and display on the webpage-->
+        <head>
+            <meta charset="UTF-8">
+            <title>A Digital Memorial for Mark Warner</title>
+            <link rel="stylesheet" type="text/css" href="mark-website.css">
+        </head>
+
+                <!--in main elmnt photo gallery, story sharing form, photo sharing-->
+                <!--footer: -->
+
+
+        <body>
+            <div class="extra-padding">
+                <header class="header">
+                    <h1>
+                        In Loving Memory of Mark Warner
+                    </h1>            
+                    <img class="photos" src="mark-warner-03.jpg" alt="Mark Warner making a silly pose while holding a camera">
+                </header>
+            </div>
+
+            <main>
+                <section id="photo-gallery">
+                    <h3>
+                        Photo Gallery
+                    </h3>
+                        <!--or i could layout all photos on a sort of grid and allow to click to expand-->
+                    <img class="photos" src="Mark-Warner-01.jpg" alt="young mark smiling at the camera">
+                    <img class="photos" src="mark-warner-graduation.jpg" alt="mark in graduation gown">
+                    <img class="photos" src="family-photo-01.jpg" alt="mark in a family photo">
+                    <img class="photos" src="family-photo-02.jpg" alt="mark with siblings">
+                </section>
+
+                <section>
+                    <h3>Share a story!</h3>
+                    <form class="story-form" action="submit-story.php" method="post">
+                        <section class="name-input">
+                            <label id="name-label" for="name">Name:</label>
+                            <br>
+                            <input type="text" id="name" name="name">
+                        </section>
+                        <section class="story-input">
+                            <label id="story-label" for="story">Share a story about Mark:</label>
+                            <br>
+                            <textarea id="story" name="story" rows="4" cols="50"></textarea>
+                        </section>
+                        <input id="submit" type="submit" value="Submit">
+                </section>
+            </main>
+
+            <footer>
+                <h3>
+                    This website is still under construction. Thank you for your patience as some features may not work.
+                </h3>
+            </footer>
+
+            <script type="module">
+                // Import the functions you need from the SDKs you need
+                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+                // TODO: Add SDKs for Firebase products that you want to use
+                // https://firebase.google.com/docs/web/setup#available-libraries
+              
+                // Your web app's Firebase configuration
+                const firebaseConfig = {
+                  apiKey: "AIzaSyCKm615gRpu4YNtlil29wPOU7SJ2i1oczk",
+                  authDomain: "mark-warner-digital-memorial.firebaseapp.com",
+                  projectId: "mark-warner-digital-memorial",
+                  storageBucket: "mark-warner-digital-memorial.appspot.com",
+                  messagingSenderId: "659247060573",
+                  appId: "1:659247060573:web:9ad4083300a7c632f19fb4"
+                };
+              
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+            </script>
+
+            <!--code below probably not needed-->
+            <!-- <script>
+                event.preventDefault();
+                const name = document.querySelector('#name').value;
+                const story = document.querySelector('#story').value;
+                const submit = document.querySelector('#submit');
+
+                const formData = {
+                    name: name,
+                    story: story
+                }
+
+                form.addEventListener('submit', () => {
+                    if (name === '' || story === ''){
+                        alert('Please fill out all fields');
+                    }  else if (name === '' && story === '') {
+                        alert('Please fill out all fields');
+                    }
+                    // to-do make sure that another else is here to submit the form to the database
+                }); -->
+
+            </script>
+
+            <script>
+                const db = firebase.firestore();
+
+                const form = document.querySelector('.story-form');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = form.name.value;
+                    const story = form.story.value;
+                    
+                    if (name === '' || story === ''){
+                        alert('Please fill out all fields');
+                    }  else if (name === '' && story === '') {
+                        alert('Please fill out all fields');
+                    } else {
+                    db.collection('stories').add({
+                        name: name,
+                        story: story
+                    }).then(() => {
+                        console.log('story added');
+                    }).catch((error) => {
+                        console.error('error adding story: ', error);
+                    })};
+                });
+            </script>
+        </body>
+    </html>
+</div>
