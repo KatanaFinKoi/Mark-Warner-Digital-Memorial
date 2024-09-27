@@ -49,6 +49,7 @@
                             <textarea id="story" name="story" rows="4" cols="50"></textarea>
                         </section>
                         <input id="submit" type="submit" value="Submit">
+                    </form>
                 </section>
             </main>
 
@@ -109,8 +110,8 @@
                 const form = document.querySelector('.story-form');
                 form.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    const name = form.name.value;
-                    const story = form.story.value;
+                    const name = form.querySelector('#name')
+                    const story = form.querySelector('#story')
                     
                     if (name === '' || story === ''){
                         alert('Please fill out all fields');
