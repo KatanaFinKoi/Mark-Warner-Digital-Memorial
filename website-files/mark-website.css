@@ -184,3 +184,7 @@ a:hover {
     text-align: center;
     text-wrap: wrap;
 }
+
+#footer-note {
+    margin: 40px 300px 0 400px;
+}
