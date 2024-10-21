@@ -13,7 +13,7 @@
                 <!--footer: -->
 
 
-        <body class="hidden">
+        <body>
             <div class="extra-padding">
                 <header class="header">
                     <h1>
@@ -21,6 +21,9 @@
                     </h1>            
                     <img class="photos" src="mark-warner-03.jpg" alt="Mark Warner making a silly pose while holding a camera">
                 </header>
+            </div>
+            <div class="dev-note">
+                <p>give the page a second to load the high quality images!</p>
             </div>
 
             <main>
@@ -61,13 +64,6 @@
                     This website is still under construction. Thank you for your patience as some features may not work.
                 </h3>
             </footer>
-            <script>
-                // Wait until the entire page, including images, is fully loaded
-                window.onload = function () {
-                    // Remove the 'hidden' class to display the content
-                    document.body.classList.remove('hidden');
-                };
-            </script>
 
             <script type="module">
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
