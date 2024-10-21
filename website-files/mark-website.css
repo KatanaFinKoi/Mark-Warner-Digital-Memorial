@@ -131,3 +131,18 @@ a:hover {
     color: #333;
     border: 2px solid #333;
 }
+
+#story-sharing-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    margin: 0px;
+    border: 5px solid #333;
+    background-color: rgb(85, 158, 255);
+}
+
+#stories-container {
+    display: inline;
+    flex-direction: column;
+}

@@ -51,6 +51,9 @@
                         <input id="button" type="submit" value="Submit">
                     </form>
                 </section>
+                <section id="story-sharing-section">
+                    <div id="stories-container"></div>
+                </section>
             </main>
 
             <footer>
@@ -60,74 +63,69 @@
             </footer>
 
             <script type="module">
-                // src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-                // src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-                // TODO: Add SDKs for Firebase products that you want to use
-                // https://firebase.google.com/docs/web/setup#available-libraries
-                console.log(initializeApp);
+                import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+            
                 // Your web app's Firebase configuration
                 const firebaseConfig = {
-                  apiKey: "AIzaSyCKm615gRpu4YNtlil29wPOU7SJ2i1oczk",
-                  authDomain: "mark-warner-digital-memorial.firebaseapp.com",
-                  projectId: "mark-warner-digital-memorial",
-                  storageBucket: "mark-warner-digital-memorial.appspot.com",
-                  messagingSenderId: "659247060573",
-                  appId: "1:659247060573:web:9ad4083300a7c632f19fb4"
+                    apiKey: "AIzaSyCKm615gRpu4YNtlil29wPOU7SJ2i1oczk",
+                    authDomain: "mark-warner-digital-memorial.firebaseapp.com",
+                    projectId: "mark-warner-digital-memorial",
+                    storageBucket: "mark-warner-digital-memorial.appspot.com",
+                    messagingSenderId: "659247060573",
+                    appId: "1:659247060573:web:9ad4083300a7c632f19fb4"
                 };
-              
+            
                 // Initialize Firebase
                 const app = initializeApp(firebaseConfig);
-                console.log(app);
-                // const db = app.firestore();
-
+            
+                // Initialize Firestore
+                const db = getFirestore(app);
+            
+                // Form submission to add a story
                 const form = document.querySelector('.story-form');
-                form.addEventListener('submit', (e) => {
+                form.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const name = document.querySelector('#name').value
-                    const story = document.querySelector('#story').value
-                    console.log('name: ', name);
-                        console.log('story: ', story);
-                    if (name === '' || story === ''){
-                        alert('Please fill out all fields');
-                    }  else if (name === '' && story === '') {
+                    const name = document.querySelector('#name').value;
+                    const story = document.querySelector('#story').value;
+            
+                    if (name === '' || story === '') {
                         alert('Please fill out all fields');
                     } else {
-                        
-                    app.collection('stories').add({
-                        name: name,
-                        story: story
-                    }).then(() => {
-                        console.log('story added');
-                    }).catch((error) => {
-                        console.error('error adding story: ', error);
-                    })};
-                });
-            </script>
-
-            <!--code below probably not needed-->
-            <!-- <script>
-                event.preventDefault();
-                const name = document.querySelector('#name').value;
-                const story = document.querySelector('#story').value;
-                const submit = document.querySelector('#submit');
-
-                const formData = {
-                    name: name,
-                    story: story
-                }
-
-                form.addEventListener('submit', () => {
-                    if (name === '' || story === ''){
-                        alert('Please fill out all fields');
-                    }  else if (name === '' && story === '') {
-                        alert('Please fill out all fields');
+                        try {
+                            await addDoc(collection(db, 'story-form'), {
+                                name: name,
+                                story: story
+                            });
+                            console.log('Story added');
+                            fetchStories(); // Refresh the stories after submission
+                        } catch (error) {
+                            console.error('Error adding story: ', error);
+                        }
                     }
-                    // to-do make sure that another else is here to submit the form to the database
-                }); 
-
-            </script> -->
+                });
+            
+                // Function to fetch and display stories
+                async function fetchStories() {
+                    const storiesContainer = document.getElementById('stories-container');
+                    storiesContainer.innerHTML = ''; // Clear existing stories
+            
+                    try {
+                        const querySnapshot = await getDocs(collection(db, 'story-form'));
+                        querySnapshot.forEach((doc) => {
+                            const data = doc.data();
+                            const storyElement = document.createElement('div');
+                            storyElement.innerHTML = `<p><strong>${data.name}</strong>: ${data.story}</p>`;
+                            storiesContainer.appendChild(storyElement);
+                        });
+                    } catch (error) {
+                        console.error('Error fetching stories: ', error);
+                    }
+                }
+            
+                // Fetch stories after the DOM is fully loaded
+                document.addEventListener('DOMContentLoaded', fetchStories);
+            </script>
         </body>
     </html>
 </div>
