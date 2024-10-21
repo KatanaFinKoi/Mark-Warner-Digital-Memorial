@@ -37,7 +37,7 @@
 
                 <section>
                     <h3>Share a story!</h3>
-                    <form class="story-form" action="submit-story.php" method="post">
+                    <form class="story-form">
                         <section class="name-input">
                             <label id="name-label" for="name">Name:</label>
                             <br>
@@ -48,7 +48,7 @@
                             <br>
                             <textarea id="story" name="story" rows="4" cols="50"></textarea>
                         </section>
-                        <input id="submit" type="submit" value="Submit">
+                        <input id="button" type="submit" value="Submit">
                     </form>
                 </section>
             </main>
@@ -60,13 +60,13 @@
             </footer>
 
             <script type="module">
-                src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"
-                src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"
+                // src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+                // src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
                 // TODO: Add SDKs for Firebase products that you want to use
                 // https://firebase.google.com/docs/web/setup#available-libraries
-              
+                console.log(initializeApp);
                 // Your web app's Firebase configuration
                 const firebaseConfig = {
                   apiKey: "AIzaSyCKm615gRpu4YNtlil29wPOU7SJ2i1oczk",
@@ -79,6 +79,31 @@
               
                 // Initialize Firebase
                 const app = initializeApp(firebaseConfig);
+                console.log(app);
+                // const db = app.firestore();
+
+                const form = document.querySelector('.story-form');
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const name = document.querySelector('#name').value
+                    const story = document.querySelector('#story').value
+                    console.log('name: ', name);
+                        console.log('story: ', story);
+                    if (name === '' || story === ''){
+                        alert('Please fill out all fields');
+                    }  else if (name === '' && story === '') {
+                        alert('Please fill out all fields');
+                    } else {
+                        
+                    app.collection('stories').add({
+                        name: name,
+                        story: story
+                    }).then(() => {
+                        console.log('story added');
+                    }).catch((error) => {
+                        console.error('error adding story: ', error);
+                    })};
+                });
             </script>
 
             <!--code below probably not needed-->
@@ -100,34 +125,9 @@
                         alert('Please fill out all fields');
                     }
                     // to-do make sure that another else is here to submit the form to the database
-                }); -->
+                }); 
 
-            </script>
-
-            <script>
-                const db = firebase.firestore();
-
-                const form = document.querySelector('.story-form');
-                form.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const name = form.querySelector('#name')
-                    const story = form.querySelector('#story')
-                    
-                    if (name === '' || story === ''){
-                        alert('Please fill out all fields');
-                    }  else if (name === '' && story === '') {
-                        alert('Please fill out all fields');
-                    } else {
-                    db.collection('stories').add({
-                        name: name,
-                        story: story
-                    }).then(() => {
-                        console.log('story added');
-                    }).catch((error) => {
-                        console.error('error adding story: ', error);
-                    })};
-                });
-            </script>
+            </script> -->
         </body>
     </html>
 </div>
