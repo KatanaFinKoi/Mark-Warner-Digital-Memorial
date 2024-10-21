@@ -13,7 +13,7 @@
                 <!--footer: -->
 
 
-        <body>
+        <body class="hidden">
             <div class="extra-padding">
                 <header class="header">
                     <h1>
@@ -61,6 +61,13 @@
                     This website is still under construction. Thank you for your patience as some features may not work.
                 </h3>
             </footer>
+            <script>
+                // Wait until the entire page, including images, is fully loaded
+                window.onload = function () {
+                    // Remove the 'hidden' class to display the content
+                    document.body.classList.remove('hidden');
+                };
+            </script>
 
             <script type="module">
                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
@@ -98,6 +105,7 @@
                                 story: story
                             });
                             console.log('Story added');
+                            form.reset();
                             fetchStories(); // Refresh the stories after submission
                         } catch (error) {
                             console.error('Error adding story: ', error);
@@ -105,23 +113,29 @@
                     }
                 });
             
-                // Function to fetch and display stories
-                async function fetchStories() {
+                    async function fetchStories() {
                     const storiesContainer = document.getElementById('stories-container');
                     storiesContainer.innerHTML = ''; // Clear existing stories
-            
+
                     try {
                         const querySnapshot = await getDocs(collection(db, 'story-form'));
                         querySnapshot.forEach((doc) => {
                             const data = doc.data();
                             const storyElement = document.createElement('div');
-                            storyElement.innerHTML = `<p><strong>${data.name}</strong>: ${data.story}</p>`;
+                            storyElement.classList.add('story-item');
+                            
+                            // Format the name and story separately
+                            storyElement.innerHTML = `
+                                <p class="story-name"><strong>${data.name}</strong></p>
+                                <p class="story-text">${data.story}</p>
+                            `;
                             storiesContainer.appendChild(storyElement);
                         });
                     } catch (error) {
                         console.error('Error fetching stories: ', error);
                     }
                 }
+
             
                 // Fetch stories after the DOM is fully loaded
                 document.addEventListener('DOMContentLoaded', fetchStories);
