@@ -162,7 +162,7 @@ a:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #aff7ff;
+    background-color: #ddfcff;
     max-width: 1000px; /* Limit the width of the story block */
     word-wrap: break-word; /* Ensure long words break and wrap within the container */
     overflow-wrap: break-word; /* Handle long words in modern browsers */
